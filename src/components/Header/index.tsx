@@ -1,7 +1,7 @@
 import './Header.scss'
 
-const Header = () => {
-  return <div className="header">Header</div>
+const Header: React.FC = ({ children }) => {
+  return <div className="header">{children}</div>
 }
 
 export default Header
