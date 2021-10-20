@@ -1,15 +1,12 @@
+@import '../../styles/mixins';
+
 .face {
+  @include borders;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 5.2rem;
   height: 5.2rem;
   font-size: var(--font-size-face);
-  border-width: 4px;
-  border-style: solid;
-  border-top-color: var(--border-light);
-  border-left-color: var(--border-light);
-  border-bottom-color: var(--border-dark-2);
-  border-right-color: var(--border-dark-2);
   cursor: pointer;
 }

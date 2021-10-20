@@ -1,10 +1,7 @@
+@import '../../styles/mixins';
+
 .app {
-  background-color: var(--bg);
+  @include borders(var(--border-light), var(--border-dark-1));
+  background-color: var(--bg-app);
   padding: 1.6rem;
-  border-width: 4px;
-  border-style: solid;
-  border-left-color: var(--border-light);
-  border-top-color: var(--border-light);
-  border-right-color: var(--border-dark-1);
-  border-bottom-color: var(--border-dark-1);
 }
