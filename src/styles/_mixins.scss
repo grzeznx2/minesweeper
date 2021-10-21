@@ -6,3 +6,12 @@
   border-bottom-color: $right-bottom;
   border-right-color: $right-bottom;
 }
+
+@mixin active-cells {
+  &:active {
+    border-top-color: var(--border-dark-2);
+    border-left-color: var(--border-dark-2);
+    border-bottom-color: var(--border-light);
+    border-right-color: var(--border-light);
+  }
+}

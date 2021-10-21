@@ -2,6 +2,7 @@
 
 .face {
   @include borders;
+  @include active-cells;
   display: flex;
   justify-content: center;
   align-items: center;

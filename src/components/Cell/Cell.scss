@@ -2,6 +2,7 @@
 
 .cell {
   @include borders;
+  @include active-cells;
   width: 3rem;
   height: 3rem;
 }
