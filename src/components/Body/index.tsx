@@ -1,7 +1,7 @@
 import './Body.scss'
 
-const Body = () => {
-  return <div className="body">Body</div>
+const Body: React.FC = ({ children }) => {
+  return <div className="body">{children}</div>
 }
 
 export default Body

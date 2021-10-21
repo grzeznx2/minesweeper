@@ -1,10 +1,17 @@
+import { useState } from 'react'
+import { generateCells } from '../../utils'
 import Body from '../Body'
+import Cell from '../Cell'
 import Face from '../Face'
 import Header from '../Header'
 import NumberDisplay from '../NumberDisplay'
 import './App.scss'
 
 const App: React.FC = () => {
+  const [cells, setCells] = useState(generateCells())
+
+  const renderCells = (): React.ReactNode => cells.map((row, rowIndex) => row.map((cell, colIndex) => <Cell key={`${rowIndex}-${colIndex}`} />))
+
   return (
     <div className="app">
       <Header>
@@ -12,7 +19,7 @@ const App: React.FC = () => {
         <Face />
         <NumberDisplay value={40} />
       </Header>
-      <Body />
+      <Body>{renderCells()}</Body>
     </div>
   )
 }
