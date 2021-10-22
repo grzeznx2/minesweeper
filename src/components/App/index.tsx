@@ -10,7 +10,10 @@ import './App.scss'
 const App: React.FC = () => {
   const [cells, setCells] = useState(generateCells())
 
-  const renderCells = (): React.ReactNode => cells.map((row, rowIndex) => row.map((cell, colIndex) => <Cell key={`${rowIndex}-${colIndex}`} />))
+  const renderCells = (): React.ReactNode =>
+    cells.map((row, rowIndex) =>
+      row.map((cell, colIndex) => <Cell key={`${rowIndex}-${colIndex}`} row={rowIndex} col={colIndex} state={cell.state} value={cell.value} />)
+    )
 
   return (
     <div className="app">
