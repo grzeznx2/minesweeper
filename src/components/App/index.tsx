@@ -28,6 +28,10 @@ const App: React.FC = () => {
     }
   }, [timerWorking])
 
+  useEffect(() => {
+    if (time === 999) setTimerWorking(false)
+  }, [time])
+
   const handleFaceClick = () => {
     setTimerWorking(false)
     setTime(0)
