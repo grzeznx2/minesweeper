@@ -11,7 +11,24 @@ import './App.scss'
 const App: React.FC = () => {
   const [cells, setCells] = useState<ICell[][]>(generateCells())
   const [face, setFace] = useState<EFace>(EFace.smiled)
+  const [time, setTime] = useState<number>(0)
+  const [timerWorking, setTimerWorking] = useState<boolean>(false)
 
+  useEffect(() => {
+    if (timerWorking) {
+      const interval = setInterval(() => {
+        setTime(time => time + 1)
+      }, 1000)
+
+      return () => {
+        clearInterval(interval)
+      }
+    }
+  }, [timerWorking])
+
+  const handleCellClick = (rowParam: number, colParam: number) => () => {
+    if (!timerWorking) setTimerWorking(true)
+  }
   const handleMouseDown = () => setFace(EFace.scared)
   const handleMouseUp = () => setFace(EFace.smiled)
 
@@ -26,6 +43,7 @@ const App: React.FC = () => {
           value={cell.value}
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
+          onClick={handleCellClick}
         />
       ))
     )
@@ -35,7 +53,7 @@ const App: React.FC = () => {
       <Header>
         <NumberDisplay value={0} />
         <Face face={face} />
-        <NumberDisplay value={40} />
+        <NumberDisplay value={time} />
       </Header>
       <Body>{renderCells()}</Body>
     </div>

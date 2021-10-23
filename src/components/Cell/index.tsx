@@ -8,9 +8,10 @@ interface CellProps {
   value: CellValue
   onMouseDown: () => void
   onMouseUp: () => void
+  onClick: (rowParam: number, colParam: number) => () => void
 }
 
-const Cell: React.FC<CellProps> = ({ row, col, state, value, onMouseDown, onMouseUp }) => {
+const Cell: React.FC<CellProps> = ({ row, col, state, value, onMouseDown, onMouseUp, onClick }) => {
   const renderContent = () => {
     if (state === CellState.touched) {
       if (value === CellValue.bomb) {
@@ -34,7 +35,7 @@ const Cell: React.FC<CellProps> = ({ row, col, state, value, onMouseDown, onMous
   }
 
   return (
-    <div onMouseUp={onMouseUp} onMouseDown={onMouseDown} className={`cell ${state === CellState.touched ? 'cell--touched' : ''}`}>
+    <div onClick={onClick(row, col)} onMouseUp={onMouseUp} onMouseDown={onMouseDown} className={`cell ${state === CellState.touched ? 'cell--touched' : ''}`}>
       {renderContent()}
     </div>
   )
