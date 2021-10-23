@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react'
 import { CellState, CellValue } from '../../types'
 import './Cell.scss'
 
@@ -9,9 +10,10 @@ interface CellProps {
   onMouseDown: () => void
   onMouseUp: () => void
   onClick: (rowParam: number, colParam: number) => () => void
+  onContextMenu: (rowParam: number, colParam: number) => (e: MouseEvent<HTMLDivElement>) => void
 }
 
-const Cell: React.FC<CellProps> = ({ row, col, state, value, onMouseDown, onMouseUp, onClick }) => {
+const Cell: React.FC<CellProps> = ({ row, col, state, value, onMouseDown, onMouseUp, onClick, onContextMenu }) => {
   const renderContent = () => {
     if (state === CellState.touched) {
       if (value === CellValue.bomb) {
@@ -35,7 +37,13 @@ const Cell: React.FC<CellProps> = ({ row, col, state, value, onMouseDown, onMous
   }
 
   return (
-    <div onClick={onClick(row, col)} onMouseUp={onMouseUp} onMouseDown={onMouseDown} className={`cell ${state === CellState.touched ? 'cell--touched' : ''}`}>
+    <div
+      onContextMenu={onContextMenu(row, col)}
+      onClick={onClick(row, col)}
+      onMouseUp={onMouseUp}
+      onMouseDown={onMouseDown}
+      className={`cell ${state === CellState.touched ? 'cell--touched' : ''}`}
+    >
       {renderContent()}
     </div>
   )
