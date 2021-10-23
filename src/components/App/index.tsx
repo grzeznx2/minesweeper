@@ -41,7 +41,7 @@ const App: React.FC = () => {
   const handleCellContextMenu = (rowParam: number, colParam: number) => (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault()
 
-    if (cells[rowParam][colParam].state !== CellState.touched || flagsCount <= 0) return
+    if (cells[rowParam][colParam].state === CellState.touched || flagsCount <= 0) return
 
     const cellsCopy = cells.map((row, rowIndex) => {
       if (rowIndex !== rowParam) return [...row]
