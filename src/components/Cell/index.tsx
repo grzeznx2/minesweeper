@@ -17,7 +17,10 @@ const Cell: React.FC<CellProps> = ({ row, col, state, value }) => {
             💣
           </span>
         )
+      } else if (value === CellValue.none) {
+        return null
       }
+      return <span className={`cell__content cell__content--${value}`}>{value}</span>
     }
     if (state === CellState.flagged) {
       return (
