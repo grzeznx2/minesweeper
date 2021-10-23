@@ -10,7 +10,7 @@ export const generateCells: GeneratingCells = (maxRows = MAX_ROWS, maxCols = MAX
     for (let col = 0; col < maxCols; col++) {
       cells[row].push({
         value: CellValue.none,
-        state: CellState.touched,
+        state: CellState.untouched,
       })
     }
   }

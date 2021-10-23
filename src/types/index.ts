@@ -21,3 +21,10 @@ export interface ICell {
   value: CellValue
   state: CellState
 }
+
+export enum Face {
+  smiled = '😊',
+  scared = '😨',
+  lost = '😰',
+  won = '😃',
+}
