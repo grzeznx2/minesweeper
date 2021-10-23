@@ -26,6 +26,12 @@ const App: React.FC = () => {
     }
   }, [timerWorking])
 
+  const handleFaceClick = () => {
+    setTimerWorking(false)
+    setTime(0)
+    setCells(generateCells())
+  }
+
   const handleCellClick = (rowParam: number, colParam: number) => () => {
     if (!timerWorking) setTimerWorking(true)
   }
@@ -52,7 +58,7 @@ const App: React.FC = () => {
     <div className="app">
       <Header>
         <NumberDisplay value={0} />
-        <Face face={face} />
+        <Face face={face} onClick={handleFaceClick} />
         <NumberDisplay value={time} />
       </Header>
       <Body>{renderCells()}</Body>

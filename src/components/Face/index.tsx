@@ -4,11 +4,12 @@ import './Face.scss'
 
 interface FaceProps {
   face: EFace
+  onClick: () => void
 }
 
-const Face: React.FC<FaceProps> = ({ face }) => {
+const Face: React.FC<FaceProps> = ({ face, onClick }) => {
   return (
-    <div className="face">
+    <div className="face" onClick={onClick}>
       <span role="img" aria-label="face">
         {face}
       </span>
