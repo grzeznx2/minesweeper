@@ -120,17 +120,6 @@ export const openMultipleCells = (cells: ICell[][], row: number, col: number): I
   let newCells = cells.slice()
   newCells[row][col].state = CellState.touched
 
-  const {
-    topLeftCell,
-    topCell,
-    topRightCell,
-    leftCell,
-    rightCell,
-    bottomLeftCell,
-    bottomCell,
-    bottomRightCell,
-  } = grabAdjacentCells(cells, row, col)
-
   const topRow = row - 1
   const middleRow = row
   const bottomRow = row + 1
@@ -138,69 +127,55 @@ export const openMultipleCells = (cells: ICell[][], row: number, col: number): I
   const middleCol = col
   const rightCol = col + 1
 
-  if (topLeftCell?.state === CellState.untouched && topLeftCell.value !== CellValue.bomb) {
-    if (topLeftCell.value === CellValue.none) {
-      newCells = openMultipleCells(newCells, topRow, leftCol)
-    } else {
-      newCells[topRow][leftCol].state = CellState.touched
-    }
-  }
+  const adjCells = grabAdjacentCells(cells, row, col)
 
-  if (topCell?.state === CellState.untouched && topCell.value !== CellValue.bomb) {
-    if (topCell.value === CellValue.none) {
-      newCells = openMultipleCells(newCells, topRow, middleCol)
-    } else {
-      newCells[topRow][middleCol].state = CellState.touched
-    }
-  }
+  Object.entries(adjCells).forEach(entry => {
+    const [key, cell] = entry
+    if (cell?.state === CellState.untouched && cell.value !== CellValue.bomb) {
+      let row: number
+      let col: number
+      switch (key) {
+        case 'topLeftCell':
+          row = topRow
+          col = leftCol
+          break
+        case 'topCell':
+          row = topRow
+          col = middleCol
+          break
+        case 'topRightCell':
+          row = topRow
+          col = rightCol
+          break
+        case 'leftCell':
+          row = middleRow
+          col = leftCol
+          break
+        case 'rightCell':
+          row = middleRow
+          col = rightCol
+          break
+        case 'bottomLeftCell':
+          row = bottomRow
+          col = leftCol
+          break
+        case 'bottomCell':
+          row = bottomRow
+          col = middleCol
+          break
+        case 'bottomRightCell':
+          row = bottomRow
+          col = rightCol
+          break
+      }
 
-  if (topRightCell?.state === CellState.untouched && topRightCell.value !== CellValue.bomb) {
-    if (topRightCell.value === CellValue.none) {
-      newCells = openMultipleCells(newCells, topRow, rightCol)
-    } else {
-      newCells[topRow][rightCol].state = CellState.touched
+      if (cell.value === CellValue.none) {
+        newCells = openMultipleCells(newCells, row!, col!)
+      } else {
+        newCells[row!][col!].state = CellState.touched
+      }
     }
-  }
-
-  if (leftCell?.state === CellState.untouched && leftCell.value !== CellValue.bomb) {
-    if (leftCell.value === CellValue.none) {
-      newCells = openMultipleCells(newCells, middleRow, leftCol)
-    } else {
-      newCells[middleRow][leftCol].state = CellState.touched
-    }
-  }
-
-  if (rightCell?.state === CellState.untouched && rightCell.value !== CellValue.bomb) {
-    if (rightCell.value === CellValue.none) {
-      newCells = openMultipleCells(newCells, middleRow, rightCol)
-    } else {
-      newCells[middleRow][rightCol].state = CellState.touched
-    }
-  }
-
-  if (bottomLeftCell?.state === CellState.untouched && bottomLeftCell.value !== CellValue.bomb) {
-    if (bottomLeftCell.value === CellValue.none) {
-      newCells = openMultipleCells(newCells, bottomRow, leftCol)
-    } else {
-      newCells[bottomRow][leftCol].state = CellState.touched
-    }
-  }
-
-  if (bottomCell?.state === CellState.untouched && bottomCell.value !== CellValue.bomb) {
-    if (bottomCell.value === CellValue.none) {
-      newCells = openMultipleCells(newCells, bottomRow, middleCol)
-    } else {
-      newCells[bottomRow][middleCol].state = CellState.touched
-    }
-  }
-
-  if (bottomRightCell?.state === CellState.untouched && bottomRightCell.value !== CellValue.bomb) {
-    if (bottomRightCell.value === CellValue.none) {
-      newCells = openMultipleCells(newCells, bottomRow, rightCol)
-    } else {
-      newCells[bottomRow][rightCol].state = CellState.touched
-    }
-  }
+  })
 
   return newCells
 }
